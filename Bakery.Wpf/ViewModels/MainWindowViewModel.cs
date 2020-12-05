@@ -15,6 +15,9 @@ namespace Bakery.Wpf.ViewModels
     {
         private ProductDto _selectedProduct;
         private ObservableCollection<ProductDto> _products;
+        private double _selectedPriceFilterFrom;
+        private double _selectedPriceFilterTo;
+        private double _avg;
 
         public ObservableCollection<ProductDto> Products
         {
@@ -35,15 +38,88 @@ namespace Bakery.Wpf.ViewModels
                 // Validate();
             } 
         }
+        public double SelectedPriceFilterFrom 
+        {
+            get => _selectedPriceFilterFrom;
+            set
+            {
+                _selectedPriceFilterFrom = value;
+                OnPropertyChanged(nameof(SelectedPriceFilterFrom));
+            }
+        }
+        public double SelectedPriceFilterTo
+        {
+            get => _selectedPriceFilterTo;
+            set
+            {
+                _selectedPriceFilterTo = value;
+                OnPropertyChanged(nameof(SelectedPriceFilterTo));
+            }
+        }
+        public double Avg 
+        {
+            get => _avg = Average();
+            set
+            {
+                _avg = value;
+                OnPropertyChanged(nameof(Avg));
+            }
+        }
+        public double Average()
+        {
+            double result = 0;
+            foreach (var item in Products)
+            {
+                result += item.Price;
+            }
+            return result / Products.Count;
+        }
+        public RelayCommand CmdPriceFilter { get; private set; }
+        public RelayCommand CmdNewProduct { get; set; }
+        public RelayCommand CmdEditProduct { get; set; }
+
+
         public MainWindowViewModel(IWindowController controller) : base(controller)
         {
 
-            LoadCommands();
+            LoadCommandsAsync();
         }
 
-        private void LoadCommands()
+        private void LoadCommandsAsync()
         {
+            CmdPriceFilter = new RelayCommand(
+                execute: async _ =>
+                {
+                    await using IUnitOfWork unitOfWork = new UnitOfWork();
+                    var a = await unitOfWork.Products
+                    .GetFilteredProduct(SelectedPriceFilterFrom, SelectedPriceFilterTo);
+                    Products = new ObservableCollection<ProductDto>(a);
+                    SelectedProduct = Products.FirstOrDefault();
+                    Avg = Average();
+                }
+                ,
+                canExecute: _ => SelectedPriceFilterFrom > 0 
+                    || SelectedPriceFilterTo > 0
+                )
+                ;
+            CmdNewProduct = new RelayCommand(
+                execute: _ =>
+                {
 
+                }
+                ,
+                canExecute: _ => SelectedProduct != null
+                )
+                ;
+            CmdEditProduct = new RelayCommand(
+                execute: _ =>
+                {
+
+                }
+                ,
+                canExecute: _ => SelectedProduct != null
+                )
+                ;
         }
 
         public static async Task<MainWindowViewModel> Create(IWindowController controller)

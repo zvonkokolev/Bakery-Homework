@@ -1,6 +1,7 @@
 ﻿using Bakery.Core.DTOs;
 using Bakery.Core.Entities;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Bakery.Core.Contracts
@@ -11,5 +12,6 @@ namespace Bakery.Core.Contracts
         Task AddRangeAsync(IEnumerable<Product> products);
         Task<Product[]> GetAllProductsAsync();
         Task<ProductDto[]> GetAllProductDtosAsync();
+        Task<ProductDto[]> GetFilteredProduct(double From, double To);
     }
 }

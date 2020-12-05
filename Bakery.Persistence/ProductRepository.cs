@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Bakery.Core.Contracts;
@@ -35,5 +36,14 @@ namespace Bakery.Persistence
             .Select(p => new ProductDto(p))
             .ToArrayAsync()
             ;
+
+        public async Task<ProductDto[]> GetFilteredProduct(double From, double To)
+        {
+            var a = await GetAllProductDtosAsync();
+            return a
+                .Where(p => p.Price >= From && p.Price <= To)
+                .ToArray()
+                ;
+        }
     }
 }

@@ -31,17 +31,18 @@
                HorizontalAlignment="Left" Margin="10,5,0,0" 
                VerticalAlignment="Top"/>
         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" 
-                 Margin="10,10,0,0" Text="" TextWrapping="Wrap" 
-                 VerticalAlignment="Top" Width="50"/>
+                 Margin="10,10,0,0" Text="{Binding Path=SelectedPriceFilterFrom}" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
         <Label Grid.Row="1" Content="Preis bis: " Grid.Column="2" 
                HorizontalAlignment="Left" Margin="10,5,0,0" 
                VerticalAlignment="Top"/>
         <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left"
-                 Margin="10,10,0,0" Text="" TextWrapping="Wrap"
-                 VerticalAlignment="Top" Width="50"/>
+                 Margin="10,10,0,0" Text="{Binding Path=SelectedPriceFilterTo}"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
         <Button Grid.Row="1" Content="FILTER ANWENDEN" Grid.Column="4" 
                 HorizontalAlignment="Left" Margin="10,5,0,0" 
-                VerticalAlignment="Top"/>
+                VerticalAlignment="Top" 
+                Command="{Binding Path=CmdPriceFilter, UpdateSourceTrigger=PropertyChanged}"/>
         <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"
                  ItemsSource="{Binding Path=Products}"
                  SelectedItem="{Binding Path=SelectedProduct}"
@@ -55,14 +56,19 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5"
-                   HorizontalAlignment="Left" Margin="10,0,0,0" Text=""
+                   HorizontalAlignment="Left" Margin="10,0,0,0" 
+                   Text="Durchschnittspreis aller angezeigten Produkte: "
                    TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="3" Grid.Column="4" 
+                 Text="{Binding Path=Avg, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                 Content="NEUES PRODUKT ANLEGEN" HorizontalAlignment="Left"
-                Margin="20,10,0,10" VerticalAlignment="Top"/>
+                Margin="20,10,0,10" VerticalAlignment="Top"
+                Command="{Binding Path=CmdNewProduct}"/>
         <Button Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" 
                 Content="PRODUKT BEARBEITEN" HorizontalAlignment="Left" 
-                Margin="20,10,0,10" VerticalAlignment="Top"/>
+                Margin="20,10,0,10" VerticalAlignment="Top"
+                Command="{Binding Path=CmdEditProduct}"/>
 
     </Grid>
 </controls:MetroWindow>
