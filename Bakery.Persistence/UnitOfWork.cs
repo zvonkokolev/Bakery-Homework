@@ -55,7 +55,17 @@ namespace Bakery.Persistence
         /// <param name="entity"></param>
         private async Task ValidateEntity(object entity)
         {
-         
+            if(entity is Product product)
+            {
+                var validationContext = new ValidationContext(product);
+                Validator.ValidateObject(product, validationContext, validateAllProperties: true);
+
+                if(await _dbContext.Products.AnyAsync(p => p.Name.Equals(product.Name) && p.Id == product.Id))
+                {
+                    throw new ValidationException($"Product mit der Name {product.Name} existiert schon");
+                }
+            }
+
         }
 
         public async Task DeleteDatabaseAsync() => await _dbContext.Database.EnsureDeletedAsync();

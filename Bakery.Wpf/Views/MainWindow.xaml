@@ -7,5 +7,62 @@
         xmlns:local="clr-namespace:Bakery.Wpf.Views"
         mc:Ignorable="d"
         Title="Produkte" Height="550" Width="450">
-    
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Left" Margin="10,10,0,0" 
+                   Text="Produktübersicht" TextWrapping="Wrap" 
+                   VerticalAlignment="Top"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Preis von: " 
+               HorizontalAlignment="Left" Margin="10,5,0,0" 
+               VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" 
+                 Margin="10,10,0,0" Text="" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="50"/>
+        <Label Grid.Row="1" Content="Preis bis: " Grid.Column="2" 
+               HorizontalAlignment="Left" Margin="10,5,0,0" 
+               VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left"
+                 Margin="10,10,0,0" Text="" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="50"/>
+        <Button Grid.Row="1" Content="FILTER ANWENDEN" Grid.Column="4" 
+                HorizontalAlignment="Left" Margin="10,5,0,0" 
+                VerticalAlignment="Top"/>
+        <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"
+                 ItemsSource="{Binding Path=Products}"
+                 SelectedItem="{Binding Path=SelectedProduct}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PROD.NR." Binding="{Binding ProductNr}"></DataGridTextColumn>
+                <DataGridTextColumn Header="NAME" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PREIS" Binding="{Binding Price}"></DataGridTextColumn>
+                <DataGridTextColumn Header="VERKAUFT" Binding="{Binding AmountSold}"></DataGridTextColumn>
+                <DataGridTextColumn Header="UMSATZ" Binding="{Binding Sales}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5"
+                   HorizontalAlignment="Left" Margin="10,0,0,0" Text=""
+                   TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                Content="NEUES PRODUKT ANLEGEN" HorizontalAlignment="Left"
+                Margin="20,10,0,10" VerticalAlignment="Top"/>
+        <Button Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" 
+                Content="PRODUKT BEARBEITEN" HorizontalAlignment="Left" 
+                Margin="20,10,0,10" VerticalAlignment="Top"/>
+
+    </Grid>
 </controls:MetroWindow>

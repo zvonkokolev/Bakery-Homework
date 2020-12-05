@@ -18,13 +18,22 @@ namespace Bakery.Persistence
         }
 
         public async Task<int> GetCountAsync()
-        {
-            return await _dbContext.Products.CountAsync();
-        }
-
+            => await _dbContext.Products.CountAsync()
+            ;
         public async Task AddRangeAsync(IEnumerable<Product> products)
-        {
-            await _dbContext.Products.AddRangeAsync(products);
-        }
+            => await _dbContext.Products.AddRangeAsync(products)
+            ;
+        public async Task<Product[]> GetAllProductsAsync()
+            => await _dbContext.Products
+            .OrderBy(p => p.Name)
+            .ToArrayAsync()
+            ;
+        public async Task<ProductDto[]> GetAllProductDtosAsync()
+            => await _dbContext.Products
+            .Include(oi => oi.OrderItems)
+            .OrderBy(p => p.Name)
+            .Select(p => new ProductDto(p))
+            .ToArrayAsync()
+            ;
     }
 }
