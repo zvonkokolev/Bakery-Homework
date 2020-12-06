@@ -36,7 +36,6 @@ namespace Bakery.Persistence
             .Select(p => new ProductDto(p))
             .ToArrayAsync()
             ;
-
         public async Task<ProductDto[]> GetFilteredProduct(double From, double To)
         {
             var a = await GetAllProductDtosAsync();
@@ -45,5 +44,14 @@ namespace Bakery.Persistence
                 .ToArray()
                 ;
         }
+        public async Task<Product> GetProductByIdAsync(int id)
+            => await _dbContext.Products
+            .SingleAsync(p => p.Id == id)
+            ;
+
+        public async Task AddProductAsync(Product selectedProduct)
+            => await _dbContext.Products
+            .AddAsync(selectedProduct)
+            ;
     }
 }

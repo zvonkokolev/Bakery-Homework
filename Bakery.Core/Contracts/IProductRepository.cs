@@ -13,5 +13,7 @@ namespace Bakery.Core.Contracts
         Task<Product[]> GetAllProductsAsync();
         Task<ProductDto[]> GetAllProductDtosAsync();
         Task<ProductDto[]> GetFilteredProduct(double From, double To);
+        Task<Product> GetProductByIdAsync(int id);
+        Task AddProductAsync(Product selectedProduct);
     }
 }

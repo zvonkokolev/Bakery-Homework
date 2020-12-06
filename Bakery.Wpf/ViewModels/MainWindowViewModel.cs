@@ -18,6 +18,7 @@ namespace Bakery.Wpf.ViewModels
         private double _selectedPriceFilterFrom;
         private double _selectedPriceFilterTo;
         private double _avg;
+        private string _title;
 
         public ObservableCollection<ProductDto> Products
         {
@@ -103,8 +104,13 @@ namespace Bakery.Wpf.ViewModels
                 )
                 ;
             CmdNewProduct = new RelayCommand(
-                execute: _ =>
+                execute: async _ =>
                 {
+                    await using IUnitOfWork unitOfWork = new UnitOfWork();
+                    _title = "Produkt anlegen";
+                    var controller = new WindowController();
+                    var viewModel = await ProductWindowViewModel.Create(controller, null);
+                    controller.ShowWindow(viewModel);
 
                 }
                 ,
@@ -112,9 +118,14 @@ namespace Bakery.Wpf.ViewModels
                 )
                 ;
             CmdEditProduct = new RelayCommand(
-                execute: _ =>
+                execute: async _ =>
                 {
-
+                    await using IUnitOfWork unitOfWork = new UnitOfWork();
+                    Product product = await unitOfWork.Products.GetProductByIdAsync(SelectedProduct.Id);
+                    _title = "Produkt bearbeiten";
+                    var controller = new WindowController();
+                    var viewModel = await ProductWindowViewModel.Create(controller, product);
+                    controller.ShowWindow(viewModel);
                 }
                 ,
                 canExecute: _ => SelectedProduct != null
