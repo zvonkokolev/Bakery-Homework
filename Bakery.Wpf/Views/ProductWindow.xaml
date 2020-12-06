@@ -28,27 +28,30 @@
                HorizontalAlignment="Left" Margin="10,5,0,0" 
                VerticalAlignment="Top"/>
         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" 
-                 Margin="10,10,0,0" Text="{Binding Path=ProductNr}" 
+                 Margin="10,10,0,0" 
+                 Text="{Binding Path=ProductNr, UpdateSourceTrigger=PropertyChanged}" 
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
         <Label Grid.Row="2" Content="Produktname:" Grid.Column="0" 
                HorizontalAlignment="Left" Margin="10,5,0,0" 
                VerticalAlignment="Top"/>
         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"
-                 Margin="10,10,0,0" Text="{Binding Path=Name}"
+                 Margin="10,10,0,0" 
+                 Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
         <Label Grid.Row="3" Content="Preis              " Grid.Column="0" 
                HorizontalAlignment="Left" Margin="10,5,0,0" 
                VerticalAlignment="Top"/>
         <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"
-                 Margin="10,10,0,0" Text="{Binding Path=Price}"
+                 Margin="10,10,0,0" 
+                 Text="{Binding Path=Price, UpdateSourceTrigger=PropertyChanged}"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
         <Button Grid.Row="4" Grid.Column="0"
                 Content="SPEICHERN" HorizontalAlignment="Left"
                 Margin="20,10,0,10" VerticalAlignment="Top"
-                Command="{Binding Path=CmdNewProduct}"/>
+                Command="{Binding Path=CmdSaveProduct}"/>
         <Button Grid.Row="4" Grid.Column="1"
                 Content="RÜCKGÄNGIG" HorizontalAlignment="Left" 
                 Margin="20,10,0,10" VerticalAlignment="Top"
-                Command="{Binding Path=CmdEditProduct}"/>
+                Command="{Binding Path=CmdUnload}"/>
     </Grid>
 </controls:MetroWindow>
